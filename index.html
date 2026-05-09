@@ -1,416 +1,876 @@
-import React from "react";
-import { motion } from "framer-motion";
-import {
-  Shield,
-  Brain,
-  LineChart,
-  Layers3,
-  Users,
-  BadgeDollarSign,
-  ArrowRight,
-  Sparkles,
-  CircleDollarSign,
-  CheckCircle2,
-} from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Transparent Shield｜Company Website</title>
+  <meta name="description" content="AI financial steward for everyday people. Protect wealth from inflation with automated, transparent, low-friction asset allocation." />
+  <style>
+    :root{
+      --bg:#f6f8fb;
+      --surface:#ffffff;
+      --surface-2:#eef3f8;
+      --text:#0f172a;
+      --muted:#5b6472;
+      --line:#dbe3ec;
+      --primary:#0f766e;
+      --primary-2:#14b8a6;
+      --accent:#111827;
+      --success:#1f9d55;
+      --shadow: 0 18px 40px rgba(15, 23, 42, .08);
+      --radius: 24px;
+      --radius-sm: 16px;
+      --max: 1200px;
+    }
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.55 } },
-};
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(20,184,166,.10), transparent 28%),
+        radial-gradient(circle at top right, rgba(15,118,110,.08), transparent 22%),
+        linear-gradient(180deg, #ffffff 0%, var(--bg) 100%);
+      line-height:1.6;
+    }
 
-const features = [
-  {
-    icon: Brain,
-    title: "AI-powered stewardship",
-    text: "Automates wealth protection decisions with a transparent, user-first workflow.",
-  },
-  {
-    icon: Shield,
-    title: "Inflation defense",
-    text: "Helps everyday users preserve purchasing power through low-friction portfolio action.",
-  },
-  {
-    icon: Layers3,
-    title: "Simulation-first engine",
-    text: "Tests outcomes before execution, reducing hesitation and improving adoption.",
-  },
-  {
-    icon: LineChart,
-    title: "Recurring revenue design",
-    text: "Built for subscription growth, asset-linked services, and long-term lifetime value.",
-  },
-];
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
 
-const steps = [
-  {
-    title: "Onboard in under one minute",
-    text: "A simple entry flow captures the user’s baseline and goals without friction.",
-  },
-  {
-    title: "Simulate the best action",
-    text: "The engine compares scenarios and presents a clear, low-risk recommendation.",
-  },
-  {
-    title: "Automate execution",
-    text: "Users confirm, then the system handles the rebalancing and follow-through.",
-  },
-];
+    .container{
+      width:min(var(--max), calc(100% - 32px));
+      margin-inline:auto;
+    }
 
-const metrics = [
-  { value: "1B+", label: "Addressable market narrative" },
-  { value: "500", label: "Beta users in model validation" },
-  { value: "2", label: "Core revenue streams" },
-  { value: "24/7", label: "Always-on stewardship" },
-];
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:20;
+      backdrop-filter: blur(14px);
+      background: rgba(255,255,255,.78);
+      border-bottom:1px solid rgba(219,227,236,.75);
+    }
 
-const board = [
-  {
-    name: "Founder & CEO",
-    role: "Vision, product direction, and execution",
-    desc: "Anchors the company’s AI wealth-preservation thesis.",
-  },
-  {
-    name: "Finance Strategist",
-    role: "Market structure and portfolio logic",
-    desc: "Shapes the advisory and risk framework behind the engine.",
-  },
-  {
-    name: "Systems Expert",
-    role: "Automation and infrastructure",
-    desc: "Turns the simulation model into a scalable product system.",
-  },
-];
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:16px 0;
+    }
 
-export default function TransparentShieldWebsite() {
-  return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.12),_transparent_35%),linear-gradient(180deg,_#f8fafc_0%,_#ffffff_40%,_#eef7f4_100%)] text-slate-900">
-      <header className="sticky top-0 z-20 border-b border-slate-200/70 bg-white/75 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
-          <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-900 text-white shadow-lg shadow-slate-900/15">
-              <Shield className="h-5 w-5" />
-            </div>
-            <div>
-              <p className="text-sm font-semibold tracking-wide text-slate-500">THE TRANSPARENT SHIELD</p>
-              <p className="text-base font-semibold">AI Financial Steward</p>
-            </div>
-          </div>
-          <nav className="hidden items-center gap-8 text-sm text-slate-600 md:flex">
-            <a href="#problem" className="hover:text-slate-950">Problem</a>
-            <a href="#solution" className="hover:text-slate-950">Solution</a>
-            <a href="#traction" className="hover:text-slate-950">Traction</a>
-            <a href="#team" className="hover:text-slate-950">Team</a>
-          </nav>
-          <Button className="rounded-full px-5 shadow-md shadow-emerald-500/15">
-            Join the Waitlist
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+
+    .brand-mark{
+      width:42px;height:42px;border-radius:14px;
+      display:grid;place-items:center;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color:#fff;
+      box-shadow: 0 10px 24px rgba(20,184,166,.25);
+      font-weight:900;
+    }
+
+    .brand small{
+      display:block;
+      color:var(--muted);
+      font-weight:600;
+      letter-spacing:.2px;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:20px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+      color:var(--muted);
+      font-size:14px;
+      font-weight:600;
+    }
+
+    .nav-links a:hover{color:var(--text)}
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      border:1px solid transparent;
+      border-radius:999px;
+      padding:12px 18px;
+      font-weight:700;
+      transition:.2s ease;
+      cursor:pointer;
+      white-space:nowrap;
+    }
+    .btn-primary{
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color:#fff;
+      box-shadow: 0 12px 28px rgba(15,118,110,.18);
+    }
+    .btn-primary:hover{transform: translateY(-1px)}
+    .btn-ghost{
+      background: rgba(255,255,255,.75);
+      color:var(--text);
+      border-color:var(--line);
+    }
+    .btn-ghost:hover{background:#fff}
+
+    .hero{
+      padding: 44px 0 22px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:24px;
+      align-items:stretch;
+    }
+
+    .hero-card{
+      background: rgba(255,255,255,.9);
+      border:1px solid rgba(219,227,236,.8);
+      border-radius: 32px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .hero-main{
+      padding: 34px;
+      min-height: 560px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      background:
+        radial-gradient(circle at 80% 20%, rgba(20,184,166,.14), transparent 22%),
+        radial-gradient(circle at 50% 100%, rgba(15,118,110,.08), transparent 24%),
+        linear-gradient(180deg, #fff 0%, #fbfdff 100%);
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 14px;
+      border-radius:999px;
+      background: rgba(15,118,110,.08);
+      color:var(--primary);
+      font-weight:800;
+      font-size:13px;
+      width:fit-content;
+    }
+    .eyebrow::before{
+      content:"";
+      width:8px;height:8px;border-radius:50%;
+      background: var(--primary-2);
+      box-shadow: 0 0 0 6px rgba(20,184,166,.16);
+    }
+
+    h1{
+      font-size: clamp(2.4rem, 5vw, 4.8rem);
+      line-height: .97;
+      margin: 18px 0 16px;
+      letter-spacing:-.04em;
+    }
+
+    .lead{
+      font-size: 1.05rem;
+      color:var(--muted);
+      max-width: 58ch;
+      margin: 0 0 24px;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-bottom: 22px;
+    }
+
+    .hero-points{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap:12px;
+      margin-top: 10px;
+    }
+
+    .point{
+      padding:16px;
+      border-radius:20px;
+      background: rgba(255,255,255,.8);
+      border:1px solid rgba(219,227,236,.85);
+    }
+
+    .point strong{
+      display:block;
+      margin-bottom:6px;
+      font-size:14px;
+    }
+    .point span{
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .hero-visual{
+      padding: 26px;
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+      justify-content:space-between;
+      background:
+        linear-gradient(160deg, rgba(15,118,110,.96), rgba(17,24,39,.95));
+      color:#fff;
+      min-height: 560px;
+    }
+
+    .stat-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+
+    .stat{
+      padding:18px;
+      border-radius:20px;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .stat .num{
+      font-size:2rem;
+      font-weight:900;
+      line-height:1;
+      margin-bottom:8px;
+      letter-spacing:-.04em;
+    }
+    .stat .label{
+      color:rgba(255,255,255,.8);
+      font-size:13px;
+    }
+
+    .mini-panel{
+      border-radius: 24px;
+      padding:18px;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+    }
+
+    .mini-panel h3{
+      margin:0 0 8px;
+      font-size:16px;
+    }
+    .mini-panel p{
+      margin:0;
+      color:rgba(255,255,255,.82);
+      font-size:14px;
+    }
+
+    .section{
+      padding: 26px 0 0;
+    }
+
+    .section-title{
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:18px;
+      margin: 0 0 18px;
+    }
+    .section-title h2{
+      margin:0;
+      font-size: clamp(1.65rem, 2.4vw, 2.4rem);
+      line-height:1.1;
+      letter-spacing:-.03em;
+    }
+    .section-title p{
+      margin:0;
+      color:var(--muted);
+      max-width: 60ch;
+    }
+
+    .grid-3{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap:16px;
+    }
+
+    .card{
+      background: rgba(255,255,255,.9);
+      border:1px solid rgba(219,227,236,.9);
+      border-radius: var(--radius);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, .05);
+      padding:24px;
+    }
+
+    .card h3{
+      margin:0 0 10px;
+      font-size: 18px;
+      letter-spacing:-.02em;
+    }
+    .card p{
+      margin:0;
+      color:var(--muted);
+    }
+
+    .feature-list{
+      display:grid;
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .feature{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      padding:14px 0;
+      border-top:1px solid rgba(219,227,236,.85);
+    }
+    .feature:first-child{border-top:0; padding-top:0}
+    .badge{
+      flex:0 0 auto;
+      width:32px;height:32px;border-radius:10px;
+      display:grid;place-items:center;
+      background: rgba(15,118,110,.08);
+      color:var(--primary);
+      font-weight:900;
+      font-size:14px;
+    }
+    .feature strong{
+      display:block;
+      margin-bottom:2px;
+    }
+    .feature span{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .split{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+      align-items:stretch;
+    }
+
+    .panel{
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.88));
+      border:1px solid rgba(219,227,236,.92);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:24px;
+    }
+
+    .panel h3{
+      margin:0 0 12px;
+      font-size: 20px;
+      letter-spacing:-.02em;
+    }
+
+    .bullets{
+      display:grid;
+      gap:10px;
+      margin:0;
+      padding:0;
+      list-style:none;
+    }
+
+    .bullets li{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      color:var(--muted);
+    }
+
+    .dot{
+      width:9px;height:9px;border-radius:50%;
+      margin-top:.55em;
+      background: var(--primary-2);
+      flex:0 0 auto;
+      box-shadow: 0 0 0 5px rgba(20,184,166,.12);
+    }
+
+    .timeline{
+      display:grid;
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .step{
+      display:grid;
+      grid-template-columns: 64px 1fr;
+      gap:14px;
+      align-items:center;
+      padding:14px;
+      border-radius:18px;
+      background: var(--surface-2);
+      border:1px solid rgba(219,227,236,.85);
+    }
+    .step strong{
+      display:block;
+      margin-bottom:4px;
+    }
+    .step span{
+      color:var(--muted);
+      font-size:14px;
+    }
+    .step-num{
+      width:64px;height:64px;border-radius:20px;
+      display:grid;place-items:center;
+      background: linear-gradient(135deg, rgba(15,118,110,.14), rgba(20,184,166,.18));
+      color: var(--primary);
+      font-size: 22px;
+      font-weight:900;
+    }
+
+    .quote{
+      font-size: 1.05rem;
+      color:#111827;
+      font-weight:700;
+      line-height:1.5;
+      margin:0;
+    }
+    .quote small{
+      display:block;
+      margin-top:10px;
+      color:var(--muted);
+      font-weight:600;
+      font-size:14px;
+    }
+
+    .footer-cta{
+      margin: 32px 0 20px;
+      padding: 28px;
+      background:
+        radial-gradient(circle at top right, rgba(255,255,255,.16), transparent 22%),
+        linear-gradient(135deg, var(--primary), #0f172a);
+      color:#fff;
+      border-radius: 30px;
+      overflow:hidden;
+      position:relative;
+      box-shadow: var(--shadow);
+    }
+
+    .footer-cta h2{
+      margin:0 0 10px;
+      font-size: clamp(1.7rem, 3vw, 2.6rem);
+      line-height:1.08;
+      letter-spacing:-.03em;
+    }
+    .footer-cta p{
+      margin:0 0 18px;
+      color:rgba(255,255,255,.82);
+      max-width: 65ch;
+    }
+
+    footer{
+      padding: 10px 0 34px;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .footer-row{
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+      padding-top:10px;
+      border-top:1px solid rgba(219,227,236,.85);
+    }
+
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background: rgba(255,255,255,.1);
+      border:1px solid rgba(255,255,255,.14);
+      color:#fff;
+      font-weight:700;
+      font-size:13px;
+    }
+
+    .mobile-only{display:none}
+
+    @media (max-width: 980px){
+      .hero-grid,
+      .grid-3,
+      .split{
+        grid-template-columns: 1fr;
+      }
+      .hero-main,
+      .hero-visual{
+        min-height:auto;
+      }
+      .hero-points{
+        grid-template-columns:1fr;
+      }
+      .section-title{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+    }
+
+    @media (max-width: 720px){
+      .nav-links{
+        display:none;
+      }
+      .mobile-only{display:inline-flex}
+      .hero-main,
+      .hero-visual,
+      .panel,
+      .card{
+        padding:20px;
+        border-radius:22px;
+      }
+      h1{
+        line-height:1.02;
+      }
+      .stat-grid{
+        grid-template-columns:1fr;
+      }
+      .footer-cta{
+        padding:22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#top">
+        <div class="brand-mark">TS</div>
+        <div>
+          The Transparent Shield
+          <small>AI Financial Steward</small>
         </div>
-      </header>
+      </a>
 
-      <main>
-        <section className="mx-auto grid max-w-7xl gap-12 px-6 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-24">
-          <motion.div variants={fadeUp} initial="hidden" animate="show" className="flex flex-col justify-center">
-            <div className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700 shadow-sm">
-              <Sparkles className="h-4 w-4" />
-              Protecting wealth from inflation with automated AI action
-            </div>
-            <h1 className="max-w-2xl text-5xl font-black leading-tight tracking-tight text-slate-950 md:text-6xl">
-              The AI financial steward built to defend everyday wealth.
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-              Transparent Shield helps users preserve purchasing power with a simulation-first, low-friction
-              decision engine. It turns complex financial movement into a clear action path that is easy to trust.
-            </p>
-            <div className="mt-10 flex flex-wrap gap-4">
-              <Button size="lg" className="rounded-full px-6">
-                Explore the platform
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-              <Button size="lg" variant="outline" className="rounded-full px-6 border-slate-300 bg-white/80">
-                View product logic
-              </Button>
-            </div>
-            <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
-              {metrics.map((m) => (
-                <Card key={m.label} className="rounded-2xl border-slate-200 bg-white/80 shadow-sm">
-                  <CardContent className="p-4">
-                    <div className="text-2xl font-black text-slate-950">{m.value}</div>
-                    <div className="mt-1 text-xs leading-5 text-slate-500">{m.label}</div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </motion.div>
+      <nav class="nav-links" aria-label="主選單">
+        <a href="#problem">Problem</a>
+        <a href="#solution">Solution</a>
+        <a href="#market">Market</a>
+        <a href="#team">Team</a>
+        <a href="#contact">Contact</a>
+      </nav>
 
-          <motion.div variants={fadeUp} initial="hidden" animate="show" className="relative">
-            <div className="absolute -left-6 top-10 h-24 w-24 rounded-full bg-emerald-400/20 blur-3xl" />
-            <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-sky-400/20 blur-3xl" />
-            <Card className="relative overflow-hidden rounded-[2rem] border-slate-200 bg-white/85 shadow-[0_20px_70px_rgba(15,23,42,0.12)]">
-              <CardContent className="p-0">
-                <div className="border-b border-slate-200 bg-gradient-to-r from-slate-950 to-slate-800 px-6 py-5 text-white">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm text-slate-300">Live scenario preview</p>
-                      <p className="mt-1 text-2xl font-bold">Inflation defense mode</p>
-                    </div>
-                    <div className="rounded-2xl bg-white/10 px-3 py-2 text-sm text-emerald-300">
-                      Simulated
-                    </div>
-                  </div>
-                </div>
-                <div className="grid gap-6 p-6">
-                  <div className="rounded-3xl border border-slate-200 bg-gradient-to-br from-emerald-50 to-white p-5">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-medium text-slate-500">Portfolio Health</p>
-                        <p className="mt-1 text-4xl font-black">500</p>
-                      </div>
-                      <div className="rounded-2xl bg-slate-900 px-3 py-2 text-xs font-semibold text-white">
-                        Beta users
-                      </div>
-                    </div>
-                    <div className="mt-5 h-3 overflow-hidden rounded-full bg-slate-200">
-                      <div className="h-full w-[76%] rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400" />
-                    </div>
-                    <div className="mt-4 flex items-center justify-between text-sm text-slate-600">
-                      <span>Risk-adjusted resilience</span>
-                      <span className="font-semibold text-emerald-700">Strong</span>
-                    </div>
-                  </div>
-
-                  <div className="grid gap-4 md:grid-cols-3">
-                    {[
-                      ["1", "Detect threat"],
-                      ["2", "Run simulation"],
-                      ["3", "Execute action"],
-                    ].map(([num, title]) => (
-                      <div key={title} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                        <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-900 text-white">
-                          {num}
-                        </div>
-                        <p className="font-semibold text-slate-950">{title}</p>
-                        <p className="mt-1 text-sm leading-6 text-slate-500">
-                          Clear, guided, and easy to understand.
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        </section>
-
-        <section id="problem" className="mx-auto max-w-7xl px-6 py-10 lg:px-8">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
-            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-emerald-700">The problem</p>
-            <h2 className="mt-3 max-w-3xl text-3xl font-black tracking-tight text-slate-950 md:text-4xl">
-              Inflation quietly erodes savings while most people lack the tools to respond fast enough.
-            </h2>
-            <p className="mt-4 max-w-4xl text-lg leading-8 text-slate-600">
-              Traditional advice is too slow, too abstract, and too expensive for users who need practical protection
-              now. The result is inaction, uncertainty, and weak financial resilience.
-            </p>
-          </motion.div>
-        </section>
-
-        <section id="solution" className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-            {features.map((item) => (
-              <motion.div key={item.title} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
-                <Card className="h-full rounded-[1.75rem] border-slate-200 bg-white/85 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
-                  <CardContent className="p-6">
-                    <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-900 text-white">
-                      <item.icon className="h-5 w-5" />
-                    </div>
-                    <h3 className="text-xl font-bold text-slate-950">{item.title}</h3>
-                    <p className="mt-3 text-sm leading-7 text-slate-600">{item.text}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-7xl px-6 py-14 lg:px-8">
-          <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
-            <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
-              <Card className="rounded-[2rem] border-slate-200 bg-gradient-to-br from-white to-emerald-50/70 shadow-sm">
-                <CardContent className="p-8">
-                  <p className="text-sm font-semibold uppercase tracking-[0.25em] text-emerald-700">How it works</p>
-                  <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">
-                    Built for low-friction onboarding and automated rebalancing.
-                  </h2>
-                  <p className="mt-4 text-base leading-8 text-slate-600">
-                    The product story is simple: detect the need, simulate the outcome, and execute the best action.
-                  </p>
-                  <div className="mt-8 space-y-4">
-                    {steps.map((step, idx) => (
-                      <div key={step.title} className="flex gap-4 rounded-2xl border border-slate-200 bg-white p-4">
-                        <div className="mt-0.5 flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-600 text-sm font-bold text-white">
-                          {idx + 1}
-                        </div>
-                        <div>
-                          <p className="font-semibold text-slate-950">{step.title}</p>
-                          <p className="mt-1 text-sm leading-6 text-slate-600">{step.text}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
-              <Card className="h-full rounded-[2rem] border-slate-200 bg-white/85 shadow-sm">
-                <CardContent className="p-8">
-                  <p className="text-sm font-semibold uppercase tracking-[0.25em] text-slate-500">Business model</p>
-                  <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">
-                    A dual-revenue architecture that compounds with adoption.
-                  </h2>
-                  <div className="mt-8 grid gap-5 md:grid-cols-2">
-                    <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5">
-                      <BadgeDollarSign className="h-6 w-6 text-emerald-700" />
-                      <h3 className="mt-4 text-xl font-bold">Subscription tier</h3>
-                      <p className="mt-2 text-sm leading-7 text-slate-600">
-                        Recurring access to the AI steward, premium dashboards, and automated guidance.
-                      </p>
-                    </div>
-                    <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5">
-                      <CircleDollarSign className="h-6 w-6 text-emerald-700" />
-                      <h3 className="mt-4 text-xl font-bold">Asset-linked value</h3>
-                      <p className="mt-2 text-sm leading-7 text-slate-600">
-                        Long-term monetization through value-aligned services and retained users.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="mt-8 rounded-3xl border border-emerald-200 bg-emerald-50 p-5">
-                    <p className="text-sm font-semibold text-emerald-900">Positioning</p>
-                    <p className="mt-2 text-sm leading-7 text-emerald-900/80">
-                      Accessible. Automated. Trustworthy. Designed to sit at the intersection of low-friction access
-                      and proven value.
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </div>
-        </section>
-
-        <section id="traction" className="mx-auto max-w-7xl px-6 py-14 lg:px-8">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
-            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-slate-500">Traction & market</p>
-            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 md:text-4xl">
-              Validation points that support the thesis.
-            </h2>
-          </motion.div>
-          <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-            {[
-              ["Demand", "The market narrative centers on a massive need for accessible wealth preservation."],
-              ["Users", "Beta-scale validation demonstrates early product interest and usability signals."],
-              ["Trust", "The brand is built around transparency, clarity, and user confidence."],
-              ["Scale", "The system is designed to grow into a repeatable, software-led business."],
-            ].map(([title, text]) => (
-              <Card key={title} className="rounded-[1.75rem] border-slate-200 bg-white/85 shadow-sm">
-                <CardContent className="p-6">
-                  <CheckCircle2 className="h-6 w-6 text-emerald-700" />
-                  <h3 className="mt-4 text-lg font-bold">{title}</h3>
-                  <p className="mt-2 text-sm leading-7 text-slate-600">{text}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        <section id="team" className="mx-auto max-w-7xl px-6 py-14 lg:px-8">
-          <div className="grid gap-8 lg:grid-cols-[1fr_1.1fr]">
-            <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
-              <Card className="rounded-[2rem] border-slate-200 bg-slate-950 text-white shadow-2xl shadow-slate-900/20">
-                <CardContent className="p-8">
-                  <p className="text-sm font-semibold uppercase tracking-[0.25em] text-slate-400">Leadership</p>
-                  <h2 className="mt-3 text-3xl font-black tracking-tight">The execution engine behind the brand.</h2>
-                  <p className="mt-4 text-base leading-8 text-slate-300">
-                    The website should signal credibility, clarity, and ambition. The team section keeps the focus on
-                    execution, not hype.
-                  </p>
-                  <div className="mt-8 rounded-3xl border border-white/10 bg-white/5 p-5">
-                    <p className="text-sm font-semibold text-emerald-300">Core message</p>
-                    <p className="mt-2 text-sm leading-7 text-slate-300">
-                      We are not selling noise. We are building a product that makes inflation defense understandable,
-                      actionable, and repeatable.
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            <div className="grid gap-6">
-              {board.map((person) => (
-                <motion.div key={person.name} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
-                  <Card className="rounded-[1.75rem] border-slate-200 bg-white/85 shadow-sm">
-                    <CardContent className="flex items-start gap-5 p-6">
-                      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-800">
-                        <Users className="h-6 w-6" />
-                      </div>
-                      <div>
-                        <p className="text-lg font-bold text-slate-950">{person.name}</p>
-                        <p className="mt-1 text-sm font-medium text-emerald-700">{person.role}</p>
-                        <p className="mt-2 text-sm leading-7 text-slate-600">{person.desc}</p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-7xl px-6 pb-20 pt-8 lg:px-8">
-          <Card className="overflow-hidden rounded-[2rem] border-slate-200 bg-gradient-to-r from-slate-950 via-slate-900 to-emerald-900 text-white shadow-2xl shadow-slate-900/30">
-            <CardContent className="grid gap-8 p-8 lg:grid-cols-[1.15fr_0.85fr] lg:p-10">
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.25em] text-emerald-300">Call to action</p>
-                <h2 className="mt-3 text-3xl font-black tracking-tight md:text-4xl">
-                  Combat inflation with a product people can actually trust.
-                </h2>
-                <p className="mt-4 max-w-2xl text-base leading-8 text-slate-300">
-                  Transparent Shield is designed as a practical website narrative: clear problem, clear solution, clear
-                  business model, and clear path to adoption.
-                </p>
-                <div className="mt-8 flex flex-wrap gap-4">
-                  <Button size="lg" className="rounded-full bg-white text-slate-950 hover:bg-slate-100">
-                    Request a demo
-                  </Button>
-                  <Button size="lg" variant="outline" className="rounded-full border-white/20 bg-white/5 text-white hover:bg-white/10">
-                    Contact the team
-                  </Button>
-                </div>
-              </div>
-              <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
-                <div className="flex items-center justify-between text-sm text-slate-300">
-                  <span>Brand promise</span>
-                  <span>Transparent by design</span>
-                </div>
-                <div className="mt-6 space-y-4">
-                  {[
-                    "Automate the right financial move.",
-                    "Explain the reason before execution.",
-                    "Preserve value in a changing economy.",
-                  ].map((t) => (
-                    <div key={t} className="flex items-start gap-3 rounded-2xl border border-white/10 bg-black/10 p-4">
-                      <CheckCircle2 className="mt-0.5 h-5 w-5 text-emerald-300" />
-                      <p className="text-sm leading-7 text-slate-200">{t}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </section>
-      </main>
+      <a class="btn btn-primary mobile-only" href="#contact">Get in touch</a>
+      <a class="btn btn-ghost" href="#contact">Contact</a>
     </div>
-  );
-}
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <article class="hero-card hero-main">
+          <div>
+            <div class="eyebrow">AI financial steward for everyday people</div>
+            <h1>Protect wealth from inflation with transparent, automated investing.</h1>
+            <p class="lead">
+              We build a low-friction wealth preservation engine that helps everyday investors access disciplined asset allocation,
+              simulation-backed onboarding, and continuous AI optimization.
+            </p>
+
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#solution">Explore the solution</a>
+              <a class="btn btn-ghost" href="#market">View market opportunity</a>
+            </div>
+          </div>
+
+          <div class="hero-points">
+            <div class="point">
+              <strong>Low-friction onboarding</strong>
+              <span>1-click experience designed for non-experts.</span>
+            </div>
+            <div class="point">
+              <strong>Transparent allocation</strong>
+              <span>Clear logic, visible rules, and testable outcomes.</span>
+            </div>
+            <div class="point">
+              <strong>Continuous optimization</strong>
+              <span>AI-driven rebalancing and ongoing monitoring.</span>
+            </div>
+          </div>
+        </article>
+
+        <aside class="hero-card hero-visual" aria-label="核心指標">
+          <div>
+            <div class="tag">Built for inflation defense</div>
+            <h2 style="margin:16px 0 8px;font-size:28px;line-height:1.08;letter-spacing:-.03em;">
+              Accessible wealth preservation should not be a luxury.
+            </h2>
+            <p style="margin:0;color:rgba(255,255,255,.82);max-width:38ch;">
+              The platform targets the gap between traditional advisory services and the need for fast, affordable, automated protection.
+            </p>
+          </div>
+
+          <div class="stat-grid">
+            <div class="stat">
+              <div class="num">500</div>
+              <div class="label">Beta users in simulation testing</div>
+            </div>
+            <div class="stat">
+              <div class="num">&gt;$1B</div>
+              <div class="label">Serviceable obtainable market</div>
+            </div>
+            <div class="stat">
+              <div class="num">2</div>
+              <div class="label">Revenue streams: subscription + advisory</div>
+            </div>
+            <div class="stat">
+              <div class="num">24/7</div>
+              <div class="label">Automated monitoring and rebalancing</div>
+            </div>
+          </div>
+
+          <div class="mini-panel">
+            <h3>Positioning</h3>
+            <p>
+              A transparent AI steward that combines automated guidance, simulation-led trust building, and a scalable business model.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="problem">
+      <div class="container">
+        <div class="section-title">
+          <h2>The problem is simple: inflation eats purchasing power.</h2>
+          <p>
+            Traditional solutions are either too expensive, too complex, or too opaque for ordinary investors.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>Everyday assets are under pressure</h3>
+            <p>
+              Cash and low-yield holdings are eroded by currency depreciation and inflation over time.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Professional defense is inaccessible</h3>
+            <p>
+              Wealth-preservation tools are often reserved for larger accounts, institutional clients, or experienced investors.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Users need trust before commitment</h3>
+            <p>
+              People hesitate when the product feels abstract. Clear simulations and transparent logic reduce that barrier.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="solution">
+      <div class="container split">
+        <article class="panel">
+          <h3>Product design: simple, transparent, and simulation-first</h3>
+          <div class="feature-list">
+            <div class="feature">
+              <div class="badge">1</div>
+              <div>
+                <strong>Ultra-simple onboarding</strong>
+                <span>Frictionless entry with minimal setup and a one-step start.</span>
+              </div>
+            </div>
+            <div class="feature">
+              <div class="badge">2</div>
+              <div>
+                <strong>Zero-risk simulation</strong>
+                <span>Let users understand the concept before allocating real capital.</span>
+              </div>
+            </div>
+            <div class="feature">
+              <div class="badge">3</div>
+              <div>
+                <strong>Hands-free hedging</strong>
+                <span>Automated protection against inflation and asset depreciation.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <h3>Why it works</h3>
+          <p class="quote">
+            “A product that users can test, understand, and monitor is easier to trust than a black box.”
+            <small>Trust is not a marketing claim. It is a product requirement.</small>
+          </p>
+
+          <ul class="bullets" style="margin-top:18px;">
+            <li><span class="dot"></span><span>Simulation builds confidence before live deployment.</span></li>
+            <li><span class="dot"></span><span>Transparent logic supports credibility and retention.</span></li>
+            <li><span class="dot"></span><span>AI optimization improves scalability without sacrificing control.</span></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="market">
+      <div class="container">
+        <div class="section-title">
+          <h2>Market opportunity and business model</h2>
+          <p>
+            The company sits at the intersection of low-friction access, automated wealth preservation, and recurring revenue.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>Dual-revenue architecture</h3>
+            <p>
+              Combine subscription-based usage with advisory or premium service layers to balance acquisition and lifetime value.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Large unmet demand</h3>
+            <p>
+              The target market includes retail investors seeking practical protection from inflation and market volatility.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Scalable value creation</h3>
+            <p>
+              Continuous AI optimization enables recurring engagement, retention, and long-term product stickiness.
+            </p>
+          </article>
+        </div>
+
+        <div class="split" style="margin-top:16px;">
+          <article class="panel">
+            <h3>Revenue logic</h3>
+            <div class="timeline">
+              <div class="step">
+                <div class="step-num">A</div>
+                <div>
+                  <strong>Subscription revenue</strong>
+                  <span>Access to the core automation and simulation engine.</span>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">B</div>
+                <div>
+                  <strong>Premium advisory layer</strong>
+                  <span>Higher-touch services for more complex users or larger portfolios.</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <h3>Traction narrative</h3>
+            <div class="timeline">
+              <div class="step">
+                <div class="step-num">1</div>
+                <div>
+                  <strong>Simulation proof</strong>
+                  <span>Use beta participation to validate product-market fit.</span>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">2</div>
+                <div>
+                  <strong>Growth loop</strong>
+                  <span>Turn trust into adoption, and adoption into recurring revenue.</span>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="team">
+      <div class="container split">
+        <article class="panel">
+          <h3>Execution engine</h3>
+          <p style="color:var(--muted);margin-top:0;">
+            The company is built around a founder-led product mindset and institutional trust anchors.
+          </p>
+
+          <div class="timeline">
+            <div class="step">
+              <div class="step-num">◎</div>
+              <div>
+                <strong>Founder-led strategy</strong>
+                <span>Vision, product direction, and execution discipline.</span>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">◎</div>
+              <div>
+                <strong>Advisory support</strong>
+                <span>Industry insight, risk framing, and market credibility.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <h3>Fundraising stage</h3>
+          <p style="color:var(--muted);margin-top:0;">
+            The current objective is to raise pre-seed capital to build and validate the simulation prototype.
+          </p>
+
+          <div class="timeline">
+            <div class="step">
+              <div class="step-num">0</div>
+              <div>
+                <strong>Current status</strong>
+                <span>Pre-seed ideation and product definition.</span>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">1</div>
+              <div>
+                <strong>Next milestone</strong>
+                <span>Initial seed funding for prototype development.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="footer-cta">
+          <div class="section-title" style="margin:0 0 14px;">
+            <h2>Combat inflation with a product people can actually trust.</h2>
+            <p style="color:rgba(255,255,255,.82);">
+              Build a website that communicates the problem, the solution, the business model, and the credibility of the team in one clean narrative.
+            </p>
+          </div>
+
+          <div class="hero-actions" style="margin-bottom:0;">
+            <a class="btn btn-primary" href="mailto:hello@transparentshield.ai">hello@transparentshield.ai</a>
+            <a class="btn btn-ghost" style="background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.16);color:#fff;" href="#top">Back to top</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <div>© <span id="year"></span> The Transparent Shield. All rights reserved.</div>
+      <div>AI financial steward · Transparent by design · Built for wealth preservation</div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
