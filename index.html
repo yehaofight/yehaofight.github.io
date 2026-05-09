@@ -1,234 +1,416 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ArbiSense - 現代 ETF 市場的動態套利系統</title>
-    <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #d35400;
-            --bg-color: #f8f9fa;
-            --text-color: #333;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-color);
-        }
-        header {
-            background: var(--primary-color);
-            color: #fff;
-            padding: 3rem 1rem;
-            text-align: center;
-        }
-        header h1 {
-            margin: 0 0 10px 0;
-            font-size: 2.5rem;
-        }
-        header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-        .container {
-            max-width: 1100px;
-            margin: auto;
-            padding: 20px;
-        }
-        section {
-            background: #fff;
-            margin-bottom: 30px;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-        h2 {
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--secondary-color);
-            padding-bottom: 10px;
-            margin-top: 0;
-        }
-        h3 {
-            color: var(--secondary-color);
-        }
-        ul {
-            padding-left: 20px;
-        }
-        li {
-            margin-bottom: 10px;
-        }
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-            gap: 20px;
-        }
-        .card {
-            background: var(--bg-color);
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid var(--secondary-color);
-        }
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
-        .team-member {
-            background: #fff;
-            border: 1px solid #eee;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-        }
-        .team-member strong {
-            display: block;
-            font-size: 1.1rem;
-            color: var(--primary-color);
-        }
-        .role {
-            font-size: 0.9rem;
-            color: #7f8c8d;
-            margin-bottom: 10px;
-            display: block;
-        }
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: var(--primary-color);
-            color: white;
-            margin-top: 40px;
-        }
-    </style>
-</head>
-<body>
+import React from "react";
+import { motion } from "framer-motion";
+import {
+  Shield,
+  Brain,
+  LineChart,
+  Layers3,
+  Users,
+  BadgeDollarSign,
+  ArrowRight,
+  Sparkles,
+  CircleDollarSign,
+  CheckCircle2,
+} from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
-    <header>
-        <div class="container">
-            <h1>ArbiSense[cite: 1]</h1>
-            <p>VIX-Sentiment Adjusted Dynamic Arbitrage for the Modern ETF Market[cite: 1]</p>
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.55 } },
+};
+
+const features = [
+  {
+    icon: Brain,
+    title: "AI-powered stewardship",
+    text: "Automates wealth protection decisions with a transparent, user-first workflow.",
+  },
+  {
+    icon: Shield,
+    title: "Inflation defense",
+    text: "Helps everyday users preserve purchasing power through low-friction portfolio action.",
+  },
+  {
+    icon: Layers3,
+    title: "Simulation-first engine",
+    text: "Tests outcomes before execution, reducing hesitation and improving adoption.",
+  },
+  {
+    icon: LineChart,
+    title: "Recurring revenue design",
+    text: "Built for subscription growth, asset-linked services, and long-term lifetime value.",
+  },
+];
+
+const steps = [
+  {
+    title: "Onboard in under one minute",
+    text: "A simple entry flow captures the user’s baseline and goals without friction.",
+  },
+  {
+    title: "Simulate the best action",
+    text: "The engine compares scenarios and presents a clear, low-risk recommendation.",
+  },
+  {
+    title: "Automate execution",
+    text: "Users confirm, then the system handles the rebalancing and follow-through.",
+  },
+];
+
+const metrics = [
+  { value: "1B+", label: "Addressable market narrative" },
+  { value: "500", label: "Beta users in model validation" },
+  { value: "2", label: "Core revenue streams" },
+  { value: "24/7", label: "Always-on stewardship" },
+];
+
+const board = [
+  {
+    name: "Founder & CEO",
+    role: "Vision, product direction, and execution",
+    desc: "Anchors the company’s AI wealth-preservation thesis.",
+  },
+  {
+    name: "Finance Strategist",
+    role: "Market structure and portfolio logic",
+    desc: "Shapes the advisory and risk framework behind the engine.",
+  },
+  {
+    name: "Systems Expert",
+    role: "Automation and infrastructure",
+    desc: "Turns the simulation model into a scalable product system.",
+  },
+];
+
+export default function TransparentShieldWebsite() {
+  return (
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.12),_transparent_35%),linear-gradient(180deg,_#f8fafc_0%,_#ffffff_40%,_#eef7f4_100%)] text-slate-900">
+      <header className="sticky top-0 z-20 border-b border-slate-200/70 bg-white/75 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+          <div className="flex items-center gap-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-900 text-white shadow-lg shadow-slate-900/15">
+              <Shield className="h-5 w-5" />
+            </div>
+            <div>
+              <p className="text-sm font-semibold tracking-wide text-slate-500">THE TRANSPARENT SHIELD</p>
+              <p className="text-base font-semibold">AI Financial Steward</p>
+            </div>
+          </div>
+          <nav className="hidden items-center gap-8 text-sm text-slate-600 md:flex">
+            <a href="#problem" className="hover:text-slate-950">Problem</a>
+            <a href="#solution" className="hover:text-slate-950">Solution</a>
+            <a href="#traction" className="hover:text-slate-950">Traction</a>
+            <a href="#team" className="hover:text-slate-950">Team</a>
+          </nav>
+          <Button className="rounded-full px-5 shadow-md shadow-emerald-500/15">
+            Join the Waitlist
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
         </div>
-    </header>
+      </header>
 
-    <div class="container">
-        
-        <!-- 問題陳述 -->
-        <section id="problem">
-            <h2>傳統套利機制的崩潰 (The Cascading Failure Loop)</h2>
-            <p>傳統的 ETF 套利機制在高壓、高波動的環境下會完全失效，導致嚴重的定價缺乏效率[cite: 1]。</p>
-            <div class="grid-3">
-                <div class="card">
-                    <h3>1. 散戶 FOMO 陷阱</h3>
-                    <p>社群媒體的同溫層效應導致價格與淨值 (NAV) 嚴重脫鉤[cite: 1]。缺乏經驗的散戶在均值回歸時會遭受慘重損失[cite: 1]。</p>
-                </div>
-                <div class="card">
-                    <h3>2. 造市商癱瘓</h3>
-                    <p>VIX 飆升和流動性錯配大幅增加了執行成本[cite: 1]。造市商恰好在最需要流動性時擴大價差或暫停套利[cite: 1]。</p>
-                </div>
-                <div class="card">
-                    <h3>3. 系統性市場風險</h3>
-                    <p>不受控制的散戶恐慌和強制平倉引發了大規模的 ETF 拋售，加劇了整體市場的波動[cite: 1]。</p>
-                </div>
+      <main>
+        <section className="mx-auto grid max-w-7xl gap-12 px-6 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-24">
+          <motion.div variants={fadeUp} initial="hidden" animate="show" className="flex flex-col justify-center">
+            <div className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700 shadow-sm">
+              <Sparkles className="h-4 w-4" />
+              Protecting wealth from inflation with automated AI action
             </div>
-        </section>
-
-        <!-- 解決方案 -->
-        <section id="solution">
-            <h2>AI 驅動的動態套利 (The AI Engine Pipeline)</h2>
-            <p>一個結合 VIX 與情緒調整的動態套利模型，放棄靜態閾值，改用 AI 驅動的動態套利區間[cite: 1]。</p>
-            <ul>
-                <li><strong>數據收集引擎：</strong> 持續抓取 1 分鐘訂單流失衡 (OFI) 數據，以及來自本地論壇 (PTT/Dcard) 的即時 NLP 情緒分析[cite: 1]。</li>
-                <li><strong>SVR-PPO 核心大腦：</strong> SVR 預測 T+1 的溢價收斂率；PPO (強化學習) 計算最佳的情緒溢價權重[cite: 1]。</li>
-                <li><strong>執行過濾器：</strong> 針對軋空的自動防禦機制[cite: 1]。只有當預期利潤在數學上超過經 VIX 調整後的滑點時，才會輸出精確的買入/持有/賣出信號[cite: 1]。</li>
-            </ul>
-        </section>
-
-        <!-- 市場規模 & 競爭優勢 -->
-        <section id="market-edge">
-            <div class="grid-2">
-                <div>
-                    <h2>市場規模 (Market Size)</h2>
-                    <ul>
-                        <li><strong>TAM ($11 Trillion)：</strong> 全球蓬勃發展的 ETF 市場 AUM，受惠於對先進定價基礎設施日益增長的需求[cite: 1]。</li>
-                        <li><strong>SAM ($3 Trillion)：</strong> 量化避險基金與機構演算法交易產業[cite: 1]。</li>
-                        <li><strong>SOM ($50 Million+)：</strong> 來自台灣 Tier-1 券商及區域量化基金的 API 授權與訊號訂閱的初始目標 ARR[cite: 1]。</li>
-                    </ul>
-                </div>
-                <div>
-                    <h2>競爭優勢 (The ArbiSense Advantage)</h2>
-                    <ul>
-                        <li><strong>即時 NLP 整合：</strong> 整合即時社群情緒，能提早多達 7 天捕捉到行為 FOMO 異常[cite: 1]。</li>
-                        <li><strong>動態邊界：</strong> SVR-PPO 引擎根據即時波動率動態擴大套利邊界[cite: 1]。</li>
-                        <li><strong>混亂中執行：</strong> 在其他人無法交易時，執行高獲利且經過風險過濾的交易[cite: 1]。</li>
-                    </ul>
-                </div>
+            <h1 className="max-w-2xl text-5xl font-black leading-tight tracking-tight text-slate-950 md:text-6xl">
+              The AI financial steward built to defend everyday wealth.
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
+              Transparent Shield helps users preserve purchasing power with a simulation-first, low-friction
+              decision engine. It turns complex financial movement into a clear action path that is easy to trust.
+            </p>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Button size="lg" className="rounded-full px-6">
+                Explore the platform
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+              <Button size="lg" variant="outline" className="rounded-full px-6 border-slate-300 bg-white/80">
+                View product logic
+              </Button>
             </div>
-        </section>
-
-        <!-- 商業模式 -->
-        <section id="business-model">
-            <h2>商業模式 (Business Model)</h2>
-            <div class="grid-2">
-                <div class="card">
-                    <h3>Tier 1: Retail Shield (B2B2C)</h3>
-                    <ul>
-                        <li>固定月費的企業方案[cite: 1]。</li>
-                        <li>鎖定散戶券商[cite: 1]。</li>
-                        <li>提供即時 FOMO 警告 API，保護散戶免受極端溢價影響[cite: 1]。</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <h3>Tier 2: Alpha Execution (B2B)</h3>
-                    <ul>
-                        <li>高頻訊號訂閱[cite: 1]。</li>
-                        <li>鎖定量化避險基金與造市商[cite: 1]。</li>
-                        <li>優質低延遲的買入/持有/賣出執行數據流[cite: 1]。</li>
-                    </ul>
-                </div>
+            <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
+              {metrics.map((m) => (
+                <Card key={m.label} className="rounded-2xl border-slate-200 bg-white/80 shadow-sm">
+                  <CardContent className="p-4">
+                    <div className="text-2xl font-black text-slate-950">{m.value}</div>
+                    <div className="mt-1 text-xs leading-5 text-slate-500">{m.label}</div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
+          </motion.div>
+
+          <motion.div variants={fadeUp} initial="hidden" animate="show" className="relative">
+            <div className="absolute -left-6 top-10 h-24 w-24 rounded-full bg-emerald-400/20 blur-3xl" />
+            <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-sky-400/20 blur-3xl" />
+            <Card className="relative overflow-hidden rounded-[2rem] border-slate-200 bg-white/85 shadow-[0_20px_70px_rgba(15,23,42,0.12)]">
+              <CardContent className="p-0">
+                <div className="border-b border-slate-200 bg-gradient-to-r from-slate-950 to-slate-800 px-6 py-5 text-white">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-slate-300">Live scenario preview</p>
+                      <p className="mt-1 text-2xl font-bold">Inflation defense mode</p>
+                    </div>
+                    <div className="rounded-2xl bg-white/10 px-3 py-2 text-sm text-emerald-300">
+                      Simulated
+                    </div>
+                  </div>
+                </div>
+                <div className="grid gap-6 p-6">
+                  <div className="rounded-3xl border border-slate-200 bg-gradient-to-br from-emerald-50 to-white p-5">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-slate-500">Portfolio Health</p>
+                        <p className="mt-1 text-4xl font-black">500</p>
+                      </div>
+                      <div className="rounded-2xl bg-slate-900 px-3 py-2 text-xs font-semibold text-white">
+                        Beta users
+                      </div>
+                    </div>
+                    <div className="mt-5 h-3 overflow-hidden rounded-full bg-slate-200">
+                      <div className="h-full w-[76%] rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400" />
+                    </div>
+                    <div className="mt-4 flex items-center justify-between text-sm text-slate-600">
+                      <span>Risk-adjusted resilience</span>
+                      <span className="font-semibold text-emerald-700">Strong</span>
+                    </div>
+                  </div>
+
+                  <div className="grid gap-4 md:grid-cols-3">
+                    {[
+                      ["1", "Detect threat"],
+                      ["2", "Run simulation"],
+                      ["3", "Execute action"],
+                    ].map(([num, title]) => (
+                      <div key={title} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                        <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-900 text-white">
+                          {num}
+                        </div>
+                        <p className="font-semibold text-slate-950">{title}</p>
+                        <p className="mt-1 text-sm leading-6 text-slate-500">
+                          Clear, guided, and easy to understand.
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
         </section>
 
-        <!-- 團隊成員 -->
-        <section id="team">
-            <h2>團隊成員 (Team)</h2>
-            <p style="text-align: center; margin-bottom: 20px;">結合了量化金融、高等物理和行為數據科學的深厚領域專業知識[cite: 1]。</p>
-            <div class="team-grid">
-                <div class="team-member">
-                    <strong>Ye Hao</strong>
-                    <span class="role">Lead Researcher</span>
-                    <p style="font-size: 0.9rem;">教育學博士候選人。負責文獻綜合與戰略專案協調[cite: 1]。</p>
-                </div>
-                <div class="team-member">
-                    <strong>Yanzhen Zeng</strong>
-                    <span class="role">FinTech & Data Architect</span>
-                    <p style="font-size: 0.9rem;">清大計量金融大四。擁有初級證券業務員資格，法規/分析成績達前 10%[cite: 1]。</p>
-                </div>
-                <div class="team-member">
-                    <strong>Chongwei Yan</strong>
-                    <span class="role">Algorithm & System Lead</span>
-                    <p style="font-size: 0.9rem;">物理系大三。負責演算法優化、嚴謹數學建模與實作[cite: 1]。</p>
-                </div>
-                <div class="team-member">
-                    <strong>Yuxuan Hong</strong>
-                    <span class="role">Strategy & Behavioral Lead</span>
-                    <p style="font-size: 0.9rem;">經濟系大四。負責市場創新策略與行為經濟學分析[cite: 1]。</p>
-                </div>
+        <section id="problem" className="mx-auto max-w-7xl px-6 py-10 lg:px-8">
+          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
+            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-emerald-700">The problem</p>
+            <h2 className="mt-3 max-w-3xl text-3xl font-black tracking-tight text-slate-950 md:text-4xl">
+              Inflation quietly erodes savings while most people lack the tools to respond fast enough.
+            </h2>
+            <p className="mt-4 max-w-4xl text-lg leading-8 text-slate-600">
+              Traditional advice is too slow, too abstract, and too expensive for users who need practical protection
+              now. The result is inaction, uncertainty, and weak financial resilience.
+            </p>
+          </motion.div>
+        </section>
+
+        <section id="solution" className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {features.map((item) => (
+              <motion.div key={item.title} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
+                <Card className="h-full rounded-[1.75rem] border-slate-200 bg-white/85 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+                  <CardContent className="p-6">
+                    <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-900 text-white">
+                      <item.icon className="h-5 w-5" />
+                    </div>
+                    <h3 className="text-xl font-bold text-slate-950">{item.title}</h3>
+                    <p className="mt-3 text-sm leading-7 text-slate-600">{item.text}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-7xl px-6 py-14 lg:px-8">
+          <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+            <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
+              <Card className="rounded-[2rem] border-slate-200 bg-gradient-to-br from-white to-emerald-50/70 shadow-sm">
+                <CardContent className="p-8">
+                  <p className="text-sm font-semibold uppercase tracking-[0.25em] text-emerald-700">How it works</p>
+                  <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">
+                    Built for low-friction onboarding and automated rebalancing.
+                  </h2>
+                  <p className="mt-4 text-base leading-8 text-slate-600">
+                    The product story is simple: detect the need, simulate the outcome, and execute the best action.
+                  </p>
+                  <div className="mt-8 space-y-4">
+                    {steps.map((step, idx) => (
+                      <div key={step.title} className="flex gap-4 rounded-2xl border border-slate-200 bg-white p-4">
+                        <div className="mt-0.5 flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-600 text-sm font-bold text-white">
+                          {idx + 1}
+                        </div>
+                        <div>
+                          <p className="font-semibold text-slate-950">{step.title}</p>
+                          <p className="mt-1 text-sm leading-6 text-slate-600">{step.text}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
+              <Card className="h-full rounded-[2rem] border-slate-200 bg-white/85 shadow-sm">
+                <CardContent className="p-8">
+                  <p className="text-sm font-semibold uppercase tracking-[0.25em] text-slate-500">Business model</p>
+                  <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">
+                    A dual-revenue architecture that compounds with adoption.
+                  </h2>
+                  <div className="mt-8 grid gap-5 md:grid-cols-2">
+                    <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5">
+                      <BadgeDollarSign className="h-6 w-6 text-emerald-700" />
+                      <h3 className="mt-4 text-xl font-bold">Subscription tier</h3>
+                      <p className="mt-2 text-sm leading-7 text-slate-600">
+                        Recurring access to the AI steward, premium dashboards, and automated guidance.
+                      </p>
+                    </div>
+                    <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5">
+                      <CircleDollarSign className="h-6 w-6 text-emerald-700" />
+                      <h3 className="mt-4 text-xl font-bold">Asset-linked value</h3>
+                      <p className="mt-2 text-sm leading-7 text-slate-600">
+                        Long-term monetization through value-aligned services and retained users.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="mt-8 rounded-3xl border border-emerald-200 bg-emerald-50 p-5">
+                    <p className="text-sm font-semibold text-emerald-900">Positioning</p>
+                    <p className="mt-2 text-sm leading-7 text-emerald-900/80">
+                      Accessible. Automated. Trustworthy. Designed to sit at the intersection of low-friction access
+                      and proven value.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+        </section>
+
+        <section id="traction" className="mx-auto max-w-7xl px-6 py-14 lg:px-8">
+          <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
+            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-slate-500">Traction & market</p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 md:text-4xl">
+              Validation points that support the thesis.
+            </h2>
+          </motion.div>
+          <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {[
+              ["Demand", "The market narrative centers on a massive need for accessible wealth preservation."],
+              ["Users", "Beta-scale validation demonstrates early product interest and usability signals."],
+              ["Trust", "The brand is built around transparency, clarity, and user confidence."],
+              ["Scale", "The system is designed to grow into a repeatable, software-led business."],
+            ].map(([title, text]) => (
+              <Card key={title} className="rounded-[1.75rem] border-slate-200 bg-white/85 shadow-sm">
+                <CardContent className="p-6">
+                  <CheckCircle2 className="h-6 w-6 text-emerald-700" />
+                  <h3 className="mt-4 text-lg font-bold">{title}</h3>
+                  <p className="mt-2 text-sm leading-7 text-slate-600">{text}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        <section id="team" className="mx-auto max-w-7xl px-6 py-14 lg:px-8">
+          <div className="grid gap-8 lg:grid-cols-[1fr_1.1fr]">
+            <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
+              <Card className="rounded-[2rem] border-slate-200 bg-slate-950 text-white shadow-2xl shadow-slate-900/20">
+                <CardContent className="p-8">
+                  <p className="text-sm font-semibold uppercase tracking-[0.25em] text-slate-400">Leadership</p>
+                  <h2 className="mt-3 text-3xl font-black tracking-tight">The execution engine behind the brand.</h2>
+                  <p className="mt-4 text-base leading-8 text-slate-300">
+                    The website should signal credibility, clarity, and ambition. The team section keeps the focus on
+                    execution, not hype.
+                  </p>
+                  <div className="mt-8 rounded-3xl border border-white/10 bg-white/5 p-5">
+                    <p className="text-sm font-semibold text-emerald-300">Core message</p>
+                    <p className="mt-2 text-sm leading-7 text-slate-300">
+                      We are not selling noise. We are building a product that makes inflation defense understandable,
+                      actionable, and repeatable.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            <div className="grid gap-6">
+              {board.map((person) => (
+                <motion.div key={person.name} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
+                  <Card className="rounded-[1.75rem] border-slate-200 bg-white/85 shadow-sm">
+                    <CardContent className="flex items-start gap-5 p-6">
+                      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-800">
+                        <Users className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <p className="text-lg font-bold text-slate-950">{person.name}</p>
+                        <p className="mt-1 text-sm font-medium text-emerald-700">{person.role}</p>
+                        <p className="mt-2 text-sm leading-7 text-slate-600">{person.desc}</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
             </div>
+          </div>
         </section>
 
+        <section className="mx-auto max-w-7xl px-6 pb-20 pt-8 lg:px-8">
+          <Card className="overflow-hidden rounded-[2rem] border-slate-200 bg-gradient-to-r from-slate-950 via-slate-900 to-emerald-900 text-white shadow-2xl shadow-slate-900/30">
+            <CardContent className="grid gap-8 p-8 lg:grid-cols-[1.15fr_0.85fr] lg:p-10">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.25em] text-emerald-300">Call to action</p>
+                <h2 className="mt-3 text-3xl font-black tracking-tight md:text-4xl">
+                  Combat inflation with a product people can actually trust.
+                </h2>
+                <p className="mt-4 max-w-2xl text-base leading-8 text-slate-300">
+                  Transparent Shield is designed as a practical website narrative: clear problem, clear solution, clear
+                  business model, and clear path to adoption.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-4">
+                  <Button size="lg" className="rounded-full bg-white text-slate-950 hover:bg-slate-100">
+                    Request a demo
+                  </Button>
+                  <Button size="lg" variant="outline" className="rounded-full border-white/20 bg-white/5 text-white hover:bg-white/10">
+                    Contact the team
+                  </Button>
+                </div>
+              </div>
+              <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
+                <div className="flex items-center justify-between text-sm text-slate-300">
+                  <span>Brand promise</span>
+                  <span>Transparent by design</span>
+                </div>
+                <div className="mt-6 space-y-4">
+                  {[
+                    "Automate the right financial move.",
+                    "Explain the reason before execution.",
+                    "Preserve value in a changing economy.",
+                  ].map((t) => (
+                    <div key={t} className="flex items-start gap-3 rounded-2xl border border-white/10 bg-black/10 p-4">
+                      <CheckCircle2 className="mt-0.5 h-5 w-5 text-emerald-300" />
+                      <p className="text-sm leading-7 text-slate-200">{t}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+      </main>
     </div>
-
-    <footer>
-        <p>目前狀態：獨立開發，籌備 Q4 種子輪募資中[cite: 1]。</p>
-        <p>&copy; 2026 ArbiSense. All rights reserved.</p>
-    </footer>
-
-</body>
-</html>
+  );
+}
